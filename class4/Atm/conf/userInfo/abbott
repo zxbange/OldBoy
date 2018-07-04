@@ -1,1 +1,1 @@
-{"administrater": true, "account_id": 1, "TMALL": {"password": "zxbange", "shopping_cart": {"computer": {"count": 1, "price": 300}}}, "CREDIT_CARD": {"password": "901020", "limit": 15000, "repay_day": 5}}
+{"administrater": true, "TMALL": {"password": "zxbange", "shopping_cart": {"computer": {"count": 1, "price": 300}}}, "CREDIT_CARD": {"password": "901020", "limit": 15000, "repay_day": 5}}

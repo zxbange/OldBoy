@@ -2,7 +2,6 @@ import json
 
 info = {
     "administrater": True,
-    "account_id": 1,
     "TMALL": {
         "password": "zxbange",
         "shopping_cart": {
