@@ -11,31 +11,30 @@ def auth(auth_type):
                     print(args)
                     func(*args, **kwargs)
                 else:
-                    args[0]["acc_name"] = input("Please Input Yout Name:")
-                    res = login_auth("TMALL", acc_info)
+                    res = login_auth("TMALL", args)
                     if res:
                         func(*args, **kwargs)
-            elif auth_type == "credit_card":
-                if acc_info["credit_card_status"]:
+            elif auth_type == "credit":
+                if args[0]["credit_card_status"]:
                     func(*args, **kwargs)
                 else:
-                    acc_info["acc_name"] = input("Please Input Yout Name:")
-                    res = login_auth("CREDIT_CARD", acc_info)
+                    res = login_auth("CREDIT_CARD", args)
                     if res:
                         func(*args, **kwargs)
             elif auth_type == "administrator":
-                pass
+                if args[0]["tmall_status"]:
+                    pass
         return wrapper
     return outer_wrapper
 
 
 
 
-def login_auth(platform):
+def login_auth(platform, args):
     # this function is judge that your password is correct
-    username = input("Please Input Your Name:")
+    username = args[0]["acc_name"]
     base_dir = atm.BASE_DIR
-    file = base_dir + "/conf/userInfo/%s" %username
+    file = base_dir + "\\db\\%s" %username
     times = 0
     info = {}
     try:
@@ -44,11 +43,11 @@ def login_auth(platform):
     except FileNotFoundError:
         exit("Not a valid Account")
     while times < 3:
-        password = input("Please Input Your Password")
+        password = input("Please Input Your Password: ")
         if password == info[platform]["password"]:
-            return username
+            return True
         else:
-            print("Incorret Password")
             times += 1
+            print("Incorret Password")
     else:
         exit("Your Account is Locked")
