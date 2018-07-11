@@ -14,7 +14,8 @@ info = {
     "CREDIT_CARD": {
         "password": "901020",
         "limit": 15000,
-        "repay_day": 5
+        "repay_day": 5,
+        "balance":15000
     }
 }
 

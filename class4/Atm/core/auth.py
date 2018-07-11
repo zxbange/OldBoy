@@ -2,6 +2,29 @@ import json
 from bin import atm
 
 
+def acc_login(acc_info, platform):
+    acc_info["ACC_NAME"] = input("Please Input Your Name: ")
+    base_dir = atm.BASE_DIR
+    file = base_dir + "\\db\\%s" %acc_info["ACC_NAME"]
+    times = 0
+    info = {}
+    try:
+        with open(file, "r") as f:
+            info = json.load(f)
+    except FileNotFoundError:
+        exit("Not a valid Account")
+    while times < 3:
+        password = input("Please Input Your Password: ")
+        if password == info[platform]["password"]:
+            acc_info[platform] = True
+            return acc_info
+        else:
+            times += 1
+            print("Incorret Password")
+    else:
+        exit("Your Account is Locked")
+
+
 def auth(auth_type):
     def outer_wrapper(func):
         def wrapper(*args, **kwargs):
@@ -29,25 +52,3 @@ def auth(auth_type):
 
 
 
-
-def login_auth(platform, args):
-    # this function is judge that your password is correct
-    username = args[0]["acc_name"]
-    base_dir = atm.BASE_DIR
-    file = base_dir + "\\db\\%s" %username
-    times = 0
-    info = {}
-    try:
-        with open(file, "r") as f:
-            info = json.load(f)
-    except FileNotFoundError:
-        exit("Not a valid Account")
-    while times < 3:
-        password = input("Please Input Your Password: ")
-        if password == info[platform]["password"]:
-            return True
-        else:
-            times += 1
-            print("Incorret Password")
-    else:
-        exit("Your Account is Locked")
