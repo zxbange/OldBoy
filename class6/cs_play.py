@@ -18,12 +18,12 @@ class Role:
         print("ah...,I got shot...")
 
     def buy_gun(self, gun_name):
-        print("%s just bought %s" %(self.name, gun_name))
+        print("%s just bought %s" % (self.name, gun_name))
 
     def show_status(self):
-        print("name: %s weapen: %s life_value: %s" %(self.name, self.weapon, self.__life_value))
+        print("name: %s weapen: %s life_value: %s" % (self.name, self.weapon, self.__life_value))
 
-    def __shot(self):  # 私有属性
+    def __shot(self):  # 私有方法
         print("aaa")
 
     def __del__(self):  # 析构函数/方法
