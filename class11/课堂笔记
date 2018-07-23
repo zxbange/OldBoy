@@ -1,0 +1,15 @@
+如果有多个消费者，一个生产者，消费者将采用轮询的方式接受消息。
+多个消费者，如果在事务在处理过程中第一个消费者挂了，会自动将消息转发给第二个消费者。不过必须在no_ack = True的前提下
+durable在声明队列的时候使用，用于持久化队列，但是队列里消息会丢失。消费者和生产者都要声明
+properties=pika.BasicProperties(delivery_mode = 2,)) 这是将消息持久化。写在channel.basic_publish里
+
+
+Exchange在定义的时候是有类型的，以决定到底是哪些Queue符合条件，可以接收消息
+
+fanout: 所有bind到此exchange的queue都可以接收消息
+direct: 通过routingKey和exchange决定的那个唯一的queue可以接收消息
+topic:所有符合routingKey(此时可以是一个表达式)的routingKey所bind的queue可以接收消息
+
+
+在广播的时候，消费者必须有个queue才能取任务，取数据
+消费者不能接听已经广播过的消息
