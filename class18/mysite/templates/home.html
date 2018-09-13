@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body style="margin: 0;">
+    <div style="height: 48px; background-color: #dddddd">
+    <div>
+        <form action="/home" method="post">
+            <input type="text" name="name" placeholder="用户名" />
+            <input type="text" name="age" placeholder="年龄" />
+            <input type="text" name="sex" placeholder="性别" />
+            <input type="submit" value="添加" />
+        </form>
+    </div>
+    <div>
+        <table>
+            {% for row in user_list %}
+            <tr>
+                <td>{{ row.name }}</td>
+                <td>{{ row.age }}</td>
+                <td>{{ row.sex }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    </div>
+</body>
+</html>

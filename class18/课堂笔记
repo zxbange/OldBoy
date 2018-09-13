@@ -1,0 +1,211 @@
+Django
+
+    pip3 install django
+
+    django-admin.exe startproject mysite
+    Django工程目录
+    mysite
+        - mysite        # 对程序进行配置
+            - init
+            - settings  # 配置文件
+            - url       # URL对应关系
+            - wsgi      # 遵循wsgi规范，一般使用uwsgi + nginx
+        -manage.py      # 管理Django程序：
+                            - python manage.py
+                            - python manage.py startapp xx
+                            - python manage.py makemigrateions
+                            - python manage.py mkgrate
+
+     python manage.py runserver 127.0.0.1:8001
+
+     创建app
+     python manage.py startapp CMDB
+
+    platform
+        platform
+            - 配置
+        - 主站  app
+        - 后台管理  app
+
+    APP目录
+        migrations  # 记录数据库表结构的修改
+        __init__.py # 在python 3中可有可无
+        admin       # Django提供的后台管理
+        apps.py     # 配置当前app
+        models.py   # 创建数据库表，ORM，通过命令创建数据库结构
+        tests.py    # 单元测试
+        views.py    # 业务代码
+
+
+    1、配置模板路径，即templates
+         TEMPLATES = [
+            {
+                'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                'DIRS': [os.path.join(BASE_DIR), 'templates'], # 配置要访问的模板路径和文件名
+                'APP_DIRS': True,
+                'OPTIONS': {
+                    'context_processors': [
+                        'django.template.context_processors.debug',
+                        'django.template.context_processors.request',
+                        'django.contrib.auth.context_processors.auth',
+                        'django.contrib.messages.context_processors.messages',
+                        ],
+                    },
+            },
+         ]
+     2、配置静态目录，即static
+    STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static'),
+     )
+
+
+wsgi：是一个socket接口，都要遵循wsgi规则
+    下面的模块都是用来写socket的
+    'cgi': CGIServer,
+    'flup': FlupFCGIServer,
+    'wsgiref': WSGIRefServer,
+    'waitress': WaitressServer,
+    'cherrypy': CherryPyServer,
+    'paste': PasteServer,
+    'fapws3': FapwsServer,
+    'tornado': TornadoServer,
+    'gae': AppEngineServer,
+    'twisted': TwistedServer,
+    'diesel': DieselServer,
+    'meinheld': MeinheldServer,
+    'gunicorn': GunicornServer,
+    'eventlet': EventletServer,
+    'gevent': GeventServer,
+    'geventSocketIO':GeventSocketIOServer,
+    'rocket': RocketServer,
+    'bjoern' : BjoernServer,
+    'auto': AutoServer,
+
+
+内容整理
+	1. 创建Django工程
+			django-admin startproject 工程名
+
+	2. 创建APP
+		cd 工程名
+		python manage.py startapp cmdb
+
+	3、静态文件
+		project.settings.py
+
+		STATICFILES_DIRS = (
+			os.path.join(BASE_DIR, "static"),
+		)
+
+	4、模板路径
+
+		DIRS ==>    [os.path.join(BASE_DIR,'templates'),]
+
+	5、settings中
+
+		middlerware
+
+			# 注释 csrf
+
+
+	6、定义路由规则
+		url.py
+
+			"login" --> 函数名
+
+	7、定义视图函数
+		app下views.py
+
+			def func(request):
+				# request.method   GET / POST
+
+				# http://127.0.0.1:8009/home?nid=123&name=alex
+				# request.GET.get('',None)   # 获取请求发来的而数据
+
+				# request.POST.get('',None)
+
+
+				# return HttpResponse("字符串")
+				# return render(request, "HTML模板的路径")
+				# return redirect('/只能填URL')
+
+	8、模板渲染
+		特殊的模板语言
+
+			-- {{ 变量名 }}
+
+				def func(request):
+					return render(request, "index.html", {'current_user': "alex"})
+            -- index.html
+
+				<html>
+				..
+					<body>
+						<div>{{current_user}}</div>
+					</body>
+
+				</html>
+
+			-- For循环
+				def func(request):
+					return render(request, "index.html", {'current_user': "alex", 'user_list': ['alex','eric']})
+
+                index.html
+
+                    <html>
+                    ..
+                        <body>
+                            <div>{{current_user}}</div>
+                            <ul>
+                                {% for row in user_list %}
+                                    {% if row == "alex" %}
+                                        <li>{{ row }}</li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </body>
+                    </html>
+            #####索引#################
+				def func(request):
+					return render(request, "index.html", {
+								'current_user': "alex",
+								'user_list': ['alex','eric'],
+								'user_dict': {'k1': 'v1', 'k2': 'v2'}})
+				index.html
+
+				<html>
+				..
+					<body>
+						<div>{{current_user}}</div>
+						<a> {{ user_list.1 }} </a>
+						<a> {{ user_dict.k1 }} </a>
+						<a> {{ user_dict.k2 }} </a>
+					</body>
+				</html>
+			###### 条件
+				def func(request):
+					return render(request, "index.html", {
+								'current_user': "alex",
+								"age": 18,
+								'user_list': ['alex','eric'],
+								'user_dict': {'k1': 'v1', 'k2': 'v2'}})
+				index.html
+				<html>
+				..
+					<body>
+						<div>{{current_user}}</div>
+						<a> {{ user_list.1 }} </a>
+						<a> {{ user_dict.k1 }} </a>
+						<a> {{ user_dict.k2 }} </a>
+						{% if age %}
+							<a>有年龄</a>
+							{% if age > 16 %}
+								<a>老男人</a>
+							{% else %}
+								<a>小鲜肉</a>
+							{% endif %}
+						{% else %}
+							<a>无年龄</a>
+						{% endif %}
+					</body>
+				</html>

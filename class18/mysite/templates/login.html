@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/static/commons.css">
+    <style>
+        label{
+            width: 80px;
+            text-align: right;
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <form action="/login2" method="post" enctype="multipart/form-data">
+        <p>
+            <label for="username">用户名：</label>
+            <input id="username" name="user" type="text" />
+        </p>
+        <p>
+            <label for="password">密码：</label>
+            <input id="password" name="pwd" type="password" />
+            <input type="submit" value="提交" />
+            <span style="color: red">{{ error_msg }}</span>
+        </p>
+        <p>
+            <input type="radio" name="gender" value="1"/>男
+            <input type="radio" name="gender" value="2"/>女
+            <input type="radio" name="gender" value="3"/>中
+        </p>
+        <p>
+            <input type="checkbox" name="favor" value="11"/>男
+            <input type="checkbox" name="favor" value="22"/>女
+            <input type="checkbox" name="favor" value="33"/>中
+        </p>
+        <p>
+            <select name="city" >
+                <option value="sh">上海</option>
+                <option value="bj">北京</option>
+                <option value="tj">天津</option>
+            </select>
+        </p>
+        <p>
+            <input type="file" name="fafafa" />
+        </p>
+        <input type="submit" value="提交"/>
+    </form>
+    <script src="/static/jquery.min.js"></script>
+</body>
+</html>

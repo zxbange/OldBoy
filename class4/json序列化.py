@@ -11,7 +11,7 @@ info = {
 
 f = open("test.txt", "w")
 
-# print(json.dumps(info)) 将其变为了字符串
+print(json.dumps(info))  #将其变为了字符串
 # f.write(json.dumps(info))
 json.dump(info, f)
 

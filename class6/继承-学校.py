@@ -27,9 +27,15 @@ class SchoolMember(object):
         pass
 
 
+class Person(object):
+    def __init__(self, job):
+        self.job = job
+
+
 class Teacher(SchoolMember):
-    def __init__(self, name, age, sex, salary, course):
+    def __init__(self, name, age, sex, salary, course, job):
         super(Teacher, self).__init__(name, age, sex)
+        self.person = Person(job)
         self.salary = salary
         self.course = course
 

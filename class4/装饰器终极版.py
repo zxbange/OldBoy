@@ -22,8 +22,8 @@ def auth2(auth_type):
         def wrapper(*agrs, **kwargs):
             if auth_type == "local":
                 username = input("Username:")
-                passwrod = input("Password:")
-                if user == username and passwd == passwrod:
+                password = input("Password:")
+                if user == username and passwd == password:
                     print("\033[32;1mUser has passed authentication\033[0m")
                     res = func()
                     print("----------after authentication-----------")

@@ -18,9 +18,9 @@ def test1():
     print("in the test1")
 
 
-@timer
-def test2(name="bbb"):
-    print("name", name)
+# @timer
+# def test2(name="bbb"):
+#     print("name", name)
 
 
 
